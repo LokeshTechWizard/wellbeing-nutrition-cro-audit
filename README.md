@@ -19,7 +19,7 @@ All deliverables are self-contained within this repository and linkable via rela
 | Deliverable | Path | Description |
 | :--- | :--- | :--- |
 | **Interactive Prototype (V3)** | [`prototype/index.html`](prototype/index.html) | Production-grade, fully responsive e-commerce product page prototype with CDN assets, cart drawer, and checkout flow |
-| **Executive Presentation Deck** | [`presentation/index.html`](presentation/index.html) | Standalone 10-slide PM presentation in authentic ocean navy palette with keyboard navigation and 1-click PDF export |
+| **Executive Presentation Deck** | [`presentation/CRO Strategy Case Study.pdf`](presentation/CRO%20Strategy%20Case%20Study.pdf) | Final 10-slide executive case study presentation deck (PDF) |
 | **Full CRO Audit Report** | [`reports/CRO_Audit_Report.html`](reports/CRO_Audit_Report.html) | Comprehensive visual audit report documenting UX findings, console states, and conversion barriers |
 | **Prioritized CRO Strategy** | [`CRO_Strategy.md`](CRO_Strategy.md) | In-depth strategic intervention analysis scored via the ICE prioritization framework |
 | **A/B Test Plan** | [`AB_Test_Plan.md`](AB_Test_Plan.md) | Rigorous experimental designs for `EXP-001` and `EXP-002` with primary, secondary, and guardrail metrics |
@@ -135,8 +135,8 @@ Open any HTML deliverable directly in Google Chrome, Microsoft Edge, Mozilla Fir
 # Open the interactive V3 Prototype
 Start-Process "prototype/index.html"
 
-# Open the 10-Slide Presentation Deck (includes 1-click PDF Export)
-Start-Process "presentation/index.html"
+# Open the Executive Presentation Deck (PDF)
+Start-Process "presentation/CRO Strategy Case Study.pdf"
 
 # Open the full CRO Audit Report
 Start-Process "reports/CRO_Audit_Report.html"
