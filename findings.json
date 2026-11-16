@@ -1,0 +1,581 @@
+{
+  "audit_metadata": {
+    "target_url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+    "audit_date": "2026-10-24T20:41:55.415243",
+    "tool": "Playwright + Python",
+    "desktop_viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "mobile_viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "total_findings": 7,
+    "console_errors": 15,
+    "failed_requests": 59
+  },
+  "desktop_inspection": {
+    "title": "Pure Korean Marine Collagen Peptides | Unflavored | Combat Signs of Ageing",
+    "price": "₹1,745",
+    "subscription_found": false,
+    "variants_count": 8,
+    "qty_found": true,
+    "atc_found": true,
+    "reviews_found": false,
+    "trust_badges": true,
+    "faq_found": true,
+    "shipping_mentioned": false,
+    "returns_mentioned": true
+  },
+  "findings": [
+    {
+      "id": "F002",
+      "category": "OBSERVED USABILITY CONCERN",
+      "description": "Add-to-Cart button requires scrolling on desktop (below the fold)",
+      "evidence": "ATC button detected at Y=1498px; viewport height=900px",
+      "screenshot": "",
+      "reproduction_steps": [
+        "Load product page at 1440×900",
+        "Observe initial visible area without scrolling"
+      ],
+      "customer_impact": "Users who do not scroll may miss the primary purchase CTA",
+      "severity": "High",
+      "confidence": "Observed",
+      "recommended_fix": "Reposition ATC button above the fold or add a sticky purchase bar",
+      "validation_method": "A/B test sticky vs. inline CTA on scroll depth and add-to-cart rate",
+      "recorded_at": "2026-10-24T20:41:26.852670"
+    },
+    {
+      "id": "F005",
+      "category": "OBSERVED USABILITY CONCERN",
+      "description": "Shipping cost / free shipping threshold not prominently displayed on product page",
+      "evidence": "Body text search for 'free shipping' / 'delivery' returned False on product page",
+      "screenshot": "",
+      "reproduction_steps": [
+        "Load product page",
+        "Search page for shipping information without scrolling"
+      ],
+      "customer_impact": "Customer uncertain about total cost; price anxiety may prevent purchase",
+      "severity": "High",
+      "confidence": "Observed",
+      "recommended_fix": "Add shipping information near ATC button (e.g., 'Free shipping on orders over ₹X')",
+      "validation_method": "Heatmap analysis of where users leave the page; survey on checkout abandonment reasons",
+      "recorded_at": "2026-10-24T20:41:38.797266"
+    },
+    {
+      "id": "F009",
+      "category": "OBSERVED USABILITY CONCERN",
+      "description": "Body/description text font-size (14.0px) may be below comfortable mobile reading threshold (16px)",
+      "evidence": "CSS computed style: {'fontSize': '14px', 'lineHeight': '19.88px', 'color': 'rgb(0, 0, 0)'}",
+      "screenshot": "",
+      "reproduction_steps": [
+        "Load product page on mobile",
+        "Inspect body text font size via DevTools"
+      ],
+      "customer_impact": "Small text increases cognitive load and reduces product comprehension on mobile",
+      "severity": "Medium",
+      "confidence": "Observed",
+      "recommended_fix": "Set minimum body font size to 16px on mobile viewports",
+      "validation_method": "Accessibility audit with Lighthouse; user reading comprehension test",
+      "recorded_at": "2026-10-24T20:41:50.669170"
+    },
+    {
+      "id": "F010",
+      "category": "OBSERVED USABILITY CONCERN",
+      "description": "7 product image(s) lack descriptive alt text",
+      "evidence": "DOM query: imgs.filter(i => !i.alt).length = 7",
+      "screenshot": "",
+      "reproduction_steps": [
+        "Load product page",
+        "DevTools: document.querySelectorAll('img:not([alt])')"
+      ],
+      "customer_impact": "Screen reader users receive no product image context; WCAG 1.1.1 violation",
+      "severity": "Medium",
+      "confidence": "Observed",
+      "recommended_fix": "Add descriptive alt text to all product images",
+      "validation_method": "Automated axe-core scan; manual screen-reader test",
+      "recorded_at": "2026-10-24T20:41:54.919705"
+    },
+    {
+      "id": "F011",
+      "category": "OBSERVED USABILITY CONCERN",
+      "description": "15 form input(s) lack accessible labels (no <label for=>, aria-label, or aria-labelledby)",
+      "evidence": "DOM query count: 15",
+      "screenshot": "",
+      "reproduction_steps": [
+        "Load product page",
+        "DevTools: inspect input elements for label associations"
+      ],
+      "customer_impact": "Screen reader users cannot identify form fields; WCAG 1.3.1 violation",
+      "severity": "Medium",
+      "confidence": "Observed",
+      "recommended_fix": "Associate all inputs with visible labels or aria-label attributes",
+      "validation_method": "axe-core automated test; NVDA/JAWS screen reader test",
+      "recorded_at": "2026-10-24T20:41:55.042478"
+    },
+    {
+      "id": "F012",
+      "category": "VERIFIED TECHNICAL BUG",
+      "description": "59 network request(s) failed during page load",
+      "evidence": "[\n  {\n    \"url\": \"https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch\",\n    \"failure\": \"net::ERR_ABORTED\",\n    \"viewport\": \"desktop\"\n  },\n  {\n    \"url\": \"https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch\",\n    \"failure\": \"net::ERR_ABORTED\",\n    \"viewport\": \"desktop\"\n  },\n  {\n    \"url\": \"https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch\",\n    \"failure\": \"net::ERR_ABORTED\",\n    \"viewport\": \"desktop\"\n  },\n  {\n    \"url\": \"https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch\",\n    \"failure\": \"net::ERR_ABORTED\",\n    \"viewport\": \"desktop\"\n  },\n  {\n    \"url\": \"https://gum.as.criteo.com/fpm/sid?first_party_id=425248c4-e3c4-432a-aa80-240414b0d1fa&first_party_domain=wellbeingnutrition.com&first_party_name=shopify_client_id&topUrl=wellbeingnutrition.com&p=132449\",\n    \"failure\": \"net::ERR_ABORTED\",\n    \"viewport\": \"desktop\"\n  }\n]",
+      "screenshot": "",
+      "reproduction_steps": [
+        "Open DevTools Network tab",
+        "Reload product page",
+        "Filter for failed requests"
+      ],
+      "customer_impact": "Broken assets or APIs may cause missing images, broken reviews, or non-functional features",
+      "severity": "High",
+      "confidence": "Verified",
+      "recommended_fix": "Investigate and fix each failed request; add monitoring alerts",
+      "validation_method": "Automated network request monitoring in CI/CD",
+      "recorded_at": "2026-10-24T20:41:55.099753"
+    },
+    {
+      "id": "F013",
+      "category": "VERIFIED TECHNICAL BUG",
+      "description": "8 JavaScript console error(s) detected during page load",
+      "evidence": "[\n  {\n    \"type\": \"error\",\n    \"text\": \"Failed to load resource: net::ERR_NAME_NOT_RESOLVED\",\n    \"url\": \"https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1\"\n  },\n  {\n    \"type\": \"error\",\n    \"text\": \"Access to fetch at 'https://shop-lively-8057.myshopify.com/cart.json' from origin 'null' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.\",\n    \"url\": \"https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1\"\n  },\n  {\n    \"type\": \"error\",\n    \"text\": \"Failed to load resource: net::ERR_FAILED\",\n    \"url\": \"https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1\"\n  },\n  {\n    \"type\": \"error\",\n    \"text\": \"Error: TypeError: Failed to fetch\\n    at r.fetch (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:74451)\\n    at https://wellbeingnutrition.com/web-pixels@fcc46ef0w9d3a45bbp8938e2eamdcca70d4/custom/web-pixel-90046544@1/sandbox/modern/products/korean-marine-collagen-peptides?qty=1:47:32\\n    at Object.call (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:54391)\\n    at h (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:72782)\\n    at o (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:74110)\",\n    \"url\": \"https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1\"\n  },\n  {\n    \"type\": \"error\",\n    \"text\": \"Failed to load resource: the server responded with a status of 400 ()\",\n    \"url\": \"https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1\"\n  }\n]",
+      "screenshot": "",
+      "reproduction_steps": [
+        "Open DevTools Console tab",
+        "Reload product page",
+        "Filter for errors"
+      ],
+      "customer_impact": "JS errors may disable cart functionality, reviews, or tracking",
+      "severity": "High",
+      "confidence": "Verified",
+      "recommended_fix": "Investigate and resolve each JS error; add error monitoring (Sentry or similar)",
+      "validation_method": "Automated Playwright console-error assertion in CI",
+      "recorded_at": "2026-10-24T20:41:55.099753"
+    }
+  ],
+  "console_errors": [
+    {
+      "type": "warning",
+      "text": "In a sandboxed environment, addEventListener may not behave as expected.",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "warning",
+      "text": "[Meta Pixel] - Removed parameters from custom data due to potential violations. Go to Events Manager to learn more.",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x56fc08513200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "error",
+      "text": "Access to fetch at 'https://shop-lively-8057.myshopify.com/cart.json' from origin 'null' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "error",
+      "text": "Error: TypeError: Failed to fetch\n    at r.fetch (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:74451)\n    at https://wellbeingnutrition.com/web-pixels@fcc46ef0w9d3a45bbp8938e2eamdcca70d4/custom/web-pixel-90046544@1/sandbox/modern/products/korean-marine-collagen-peptides?qty=1:47:32\n    at Object.call (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:54391)\n    at h (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:72782)\n    at o (https://wellbeingnutrition.com/cdn/wpm/sfcc46ef0w9d3a45bbp8938e2eamdcca70d4m.js:1:74110)",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 400 ()",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "error",
+      "text": "Failed to send data to pixel API",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1"
+    },
+    {
+      "type": "warning",
+      "text": "In a sandboxed environment, addEventListener may not behave as expected.",
+      "url": "https://wellbeingnutrition.com/?openCart=true"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
+      "url": "https://wellbeingnutrition.com/?openCart=true"
+    },
+    {
+      "type": "warning",
+      "text": "In a sandboxed environment, addEventListener may not behave as expected.",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+      "viewport": "mobile"
+    },
+    {
+      "type": "warning",
+      "text": "[Meta Pixel] - Removed parameters from custom data due to potential violations. Go to Events Manager to learn more.",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+      "viewport": "mobile"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+      "viewport": "mobile"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x452400422000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "url": "https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+      "viewport": "mobile"
+    }
+  ],
+  "failed_requests": [
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://gum.as.criteo.com/fpm/sid?first_party_id=425248c4-e3c4-432a-aa80-240414b0d1fa&first_party_domain=wellbeingnutrition.com&first_party_name=shopify_client_id&topUrl=wellbeingnutrition.com&p=132449",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/a/s/shopifyEvents.js",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&apvc=1&auid=1186481008.1792854681&dt=Buy%20Best%20Korean%20Marine%20Collagen%20Powder%20%7C%20Wellbeing%20Nutrition&tid=AW-708347567&en=page_view&dl=https%3A%2F%2Fwellbeingnutrition.com%2Fproducts%2Fkorean-marine-collagen-peptides%3Fqty%3D1&scrsrc=www.googletagmanager.com&rnd=1801264065.1792854681&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45be6al1v9102538760za208zd9102538760xecxf1&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938468~118131810~118897920~118897930~120213116~120385422~120469145~120469153~121191153~121246026~121246034~123620776&tft=1792854681187&tfd=6344&tids=AW-708347567&fmt=8",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://www.google.com/rmkt/collect/708347567/?random=1792854682125&cv=11&fst=1792854682125&fmt=8&bg=ffffff&guid=ON&async=1&en=manifest_nudge_displayed&gtm=45be6al1v9102538760za200zd9102538760xecxf1&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938468~118131810~118897920~118897930~120213116~120385422~120469145~120469153~121191153~121246026~121246034~123620776&u_w=1440&u_h=900&url=https%3A%2F%2Fwellbeingnutrition.com%2Fproducts%2Fkorean-marine-collagen-peptides%3Fqty%3D1&rcb=8&frm=0&tiba=Buy%20Best%20Korean%20Marine%20Collagen%20Powder%20%7C%20Wellbeing%20Nutrition&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&hn=www.googleadservices.com&rdp=0&npa=0&pscdl=noapi&auid=1186481008.1792854681&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uamb=0&uam=&uap=Windows&uapv=10.0&uaw=0&_tu=AAI&data=event%3Dmanifest_nudge_displayed%3Bpage%3Dhttps%3A%2F%2Fwellbeingnutrition.com%2Fproducts%2Fkorean-marine-collagen-peptides%3Fqty%5C%3D1%3BnudgeType%3DAVATAR%3Bevent_category%3Dmanifest&ept=68&gcp=5",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&apvc=0&auid=1186481008.1792854681&dt=Buy%20Best%20Korean%20Marine%20Collagen%20Powder%20%7C%20Wellbeing%20Nutrition&tid=AW-708347567&en=manifest_nudge_displayed&dl=https%3A%2F%2Fwellbeingnutrition.com%2Fproducts%2Fkorean-marine-collagen-peptides%3Fqty%3D1&scrsrc=www.googletagmanager.com&rnd=1801264065.1792854681&navt=n&npa=0&ep.page=https%3A%2F%2Fwellbeingnutrition.com%2Fproducts%2Fkorean-marine-collagen-peptides%3Fqty%3D1&ep.nudgeType=AVATAR&ep.event_category=manifest&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45be6al1v9102538760za200zd9102538760xecxf1&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938468~118131810~118897920~118897930~120213116~120385422~120469145~120469153~121191153~121246026~121246034~123620776&tft=1792854682173&tfd=7330&tids=AW-708347567&fmt=8",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://k6-e4e4123be8e54363900a90353991ca93.ecs.us-west-1.on.aws/events?cee=no",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://www.google.co.in/pagead/1p-conversion/708347567/?random=1603675072&cv=11&fst=1792854681155&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6al1v9102538760za200zd9102538760xecxf1&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938468~118131810~118897920~118897930~120213116~120385422~120469145~120469153~121191153~121246026~121246034~123620776&u_w=1440&u_h=900&url=https%3A%2F%2Fwellbeingnutrition.com%2Fproducts%2Fkorean-marine-collagen-peptides%3Fqty%3D1&rcb=8&label=MlBOCKuaja0BEK-N4tEC&gtm_ee=1&evnid=sh-6e776c28-D24A-426F-1741-31EC0D5427F5&excid=shp.425248c4-e3c4-432a-aa80-240414b0d1fa&tiba=Buy%20Best%20Korean%20Marine%20Collagen%20Powder%20%7C%20Wellbeing%20Nutrition&frm=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT%2CdNzYwYj&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&edid=dNzYwYj&hn=www.googleadservices.com&rdp=0&npa=0&pscdl=noapi&auid=1186481008.1792854681&ec_mode=c&oidsrc=3&ecsid2=1288040367.1792854681&_tu=ABI&gcl_ctr=1~0~0~0&data=event%3Dpage_view%3Bshopify_event_name%3Dpage_viewed%3Bpage_path%3D%2Fproducts%2Fkorean-marine-collagen-peptides&category=acrcp_v1_512&em=tv.1&emd=tvd.1&ept=5&ct_cookie_present=false&eoid=CkgKEQjwrvHWBhCI_rap4daOpawBEjMA22jpFFSmvnP2z4QycYj_B9e8cok4GtbS4Ryi3eyK4EPkS-wbjuO-ZZie1xZlJOukQs_w_wcB&crd=CLTesQII8t-xAgit4bECCK_hsQIIobixAgixwbECCLDBsQIIscOxAgiKxbECCMLJsQII1-ixAgi0xrECCIfbsQII08WxAgjrzLECCO3OsQII1c-xAgiK8rECCPTasQII4uqxAgjo7rECCJLrsQIIyeOxAgiX1LECCMnbsQIIpt2xAgiw3rECCIDbsQIIzeGxAg&cerd=CgjV1b4tueu-LQ&fsk=ChEI8K7x1gYQ2JGto_T97c2uARIsAEgPOsc3wGEBBHcLHNPv32wSObiumHMKxfANABzdbjfxjGs3XyswMkh9zJ0aAkaX&is_vtc=1&cid=CAQS1AEAQM4h3ILQUj807PBbSm0SN9SExEYlCRMs6aHwVxPs-uC00PwZpXSoT5xjavadfuAPbqQZhDlssWHGnaxVsYakxnfjW_BtERfGv-7gB6cMPkMGNZo6YxgJ5qESFD65u_yKIyCOoU3QSCdIo9ex-pjcNtU1A9BJYFkN2zxUiwGXKDwiaK91HAzEbc92UzPPTOGeThfAQnaCPoS9hdUAW2GuuuY0pD6AW9DI6uqHsmR7yIoTictnH0I18qvo_3EjZE9VtjDD14nRBKCSoXWS0F47gYgvqQ&random=3044486117&ipr=y&pscrd=IhMIxMmKivjSlwMVxes4Bh3OXi0yOh9odHRwczovL3dlbGxiZWluZ251dHJpdGlvbi5jb20vQldDaEVJOEs3eDFnWVFydHpvb01lWnJ2T09BUklzQUZOSmpCRVltQWdBazhYeExoUGZVY2tmQnV6LW1TMXdlWFU0NGpmV1JGbTBqUnBkaTE0TUFIQmR5VEF6DAgJYggIABAAGAAgAIIBE3ABiAEB4gEBAvEBBuo3IV4S3D8",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://k6-e4e4123be8e54363900a90353991ca93.ecs.us-west-1.on.aws/events?cee=no",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://www.google.co.in/pagead/1p-conversion/708347567/?random=1898504594&cv=11&fst=1792854681173&fmt=8&bg=ffffff&guid=ON&async=1&en=view_item&gtm=45be6al1v9102538760za200zd9102538760xecxf1&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938468~118131810~118897920~118897930~120213116~120385422~120469145~120469153~121191153~121246026~121246034~123620776&u_w=1440&u_h=900&url=https%3A%2F%2Fwellbeingnutrition.com%2Fproducts%2Fkorean-marine-collagen-peptides%3Fqty%3D1&rcb=8&label=fzyHCLGaja0BEK-N4tEC&gtm_ee=1&evnid=sh-6e776d49-9131-425F-8B38-95F26E1141FE&excid=shp.425248c4-e3c4-432a-aa80-240414b0d1fa&frm=0&tiba=Buy%20Best%20Korean%20Marine%20Collagen%20Powder%20%7C%20Wellbeing%20Nutrition&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT%2CdNzYwYj&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&edid=dNzYwYj&value=1745&currency_code=INR&hn=www.googleadservices.com&rdp=0&npa=0&pscdl=noapi&auid=1186481008.1792854681&ec_mode=c&oidsrc=3&ecsid2=1288040367.1792854681&_tu=ABI&gcl_ctr=2~0~0~0&data=event%3Dview_item%3Bshopify_event_name%3Dproduct_viewed%3Becomm_prodid%3Dshopify_IN_7067936915536_40790287614032%3Becomm_totalvalue%3D1745%3Becomm_pagetype%3Dproduct&category=acrcp_v1_512&em=tv.1&emd=tvd.1&ept=5&ct_cookie_present=false&eoid=CkgKEQjwrvHWBhCI_rap4daOpawBEjMA22jpFMlV3-tkEY94k47q8OjfbTSLgPg7ZMor3N2TqpPxrViL4UcSeUc1ShLtHN6OeAnw_wcB&crd=CLTesQII8t-xAgit4bECCK_hsQIIobixAgixwbECCLDBsQIIscOxAgiKxbECCMLJsQII1-ixAgi0xrECCIfbsQII08WxAgjrzLECCO3OsQII1c-xAgiK8rECCPTasQII4uqxAgjo7rECCJLrsQIIyeOxAgiX1LECCMnbsQIIpt2xAgiw3rECCIDbsQIIzeGxAgjL4bEC&cerd=CgyDsL4t1dW-Lcjsvi0&fsk=ChEI8K7x1gYQ2JGto_T97c2uARIsAEgPOseS9UFJ_Q-vOIX3JzElEpo_rBXrU1TRU4CuUAA1b4Wj4AO6CIXY6vIaAmRB&is_vtc=1&cid=CAQS1AEAQM4h3DNJTfh5PFlwTsPYI1Gkc_ktgNcZ-2HxsEpm8DDJY_F2husKtsWusPCAGhPYsazSyx-bI09JfkYTfPeVPB7uC_ADXoLhmvn0N2IoWrZLRGwXrud1jvENT9bhvnMEh7pGWCmrlzZNDq0bXsL0cVJ_TEugwndHT26O9sX607houEwFAlqGdR-fEHX_12mMVz7RdfuivyJS18dLbX2JXMzzgVFppexzkLhVyjdzAVaAr6rYgODQsSAlzv1hXsDoTL1_SPq_VR8IHOa5X5GfAsP0CQ&random=1916288247&ipr=y&pscrd=IhMIqNGKivjSlwMVp8Y4Bh3hIwrnOh9odHRwczovL3dlbGxiZWluZ251dHJpdGlvbi5jb20vQldDaEVJOEs3eDFnWVFydHpvb01lWnJ2T09BUklzQUZOSmpCRXlyRG5BM0laMXJCSEhlQmZwelViVG1LdUM1OEREVGZaQnpQUDg1UVc5Y2NiTVQ2SlFRSzB6DAgJYggIABAAGAAgAIIBE3ABiAEB4gEBAvEBBuo3IV4S3D8",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://analytics.gokwik.co/analytics.js?shop=wellbeing-india.myshopify.com",
+      "failure": "net::ERR_NAME_NOT_RESOLVED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://cdn.gokwik.co/v4/dist/gokwik.min.js?shop=wellbeing-india.myshopify.com",
+      "failure": "net::ERR_BLOCKED_BY_ORB",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://shop-lively-8057.myshopify.com/cart.json",
+      "failure": "net::ERR_FAILED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/a/s/shopifyEvents.js",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://gum.criteo.com/fpm/init?first_party_id=425248c4-e3c4-432a-aa80-240414b0d1fa&first_party_domain=wellbeingnutrition.com&first_party_name=shopify_client_id&topUrl=wellbeingnutrition.com&p=132449",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://www.google.com/ccm/collect?rcb=15&frm=0&apvc=1&auid=1186481008.1792854681&dt=Wellbeing%20Nutrition%20India%20-%20Health%20and%20Beauty%20Supplements%20Online&tid=AW-708347567&en=page_view&dl=https%3A%2F%2Fwellbeingnutrition.com%2F%3FopenCart%3Dtrue&dr=https%3A%2F%2Fwellbeingnutrition.com%2Fcart&scrsrc=www.googletagmanager.com&rnd=2085732283.1792854696&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45be6al1v9102538760za208zd9102538760xecxf1&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938466~115938468~118131810~118897920~118897930~120213116~120385422~120469145~120469153~121191153~121246026~121246034&tft=1792854696242&tfd=1670&tids=AW-708347567&fmt=8",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://k6-e4e4123be8e54363900a90353991ca93.ecs.us-west-1.on.aws/events?cee=no",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://analytics.gokwik.co/analytics.js?shop=wellbeing-india.myshopify.com",
+      "failure": "net::ERR_NAME_NOT_RESOLVED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://cdn.gokwik.co/v4/dist/gokwik.min.js?shop=wellbeing-india.myshopify.com",
+      "failure": "net::ERR_BLOCKED_BY_ORB",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://www.google.co.in/pagead/1p-conversion/708347567/?random=625144635&cv=11&fst=1792854696235&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6al1v9102538760za200zd9102538760xecxf1&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938466~115938468~118131810~118897920~118897930~120213116~120385422~120469145~120469153~121191153~121246026~121246034&u_w=1440&u_h=900&url=https%3A%2F%2Fwellbeingnutrition.com%2F%3FopenCart%3Dtrue&ref=https%3A%2F%2Fwellbeingnutrition.com%2Fcart&rcb=15&label=MlBOCKuaja0BEK-N4tEC&gtm_ee=1&evnid=sh-6e779e25-7E50-41E9-DC94-5CB44FE2CDA9&excid=shp.425248c4-e3c4-432a-aa80-240414b0d1fa&tiba=Wellbeing%20Nutrition%20India%20-%20Health%20and%20Beauty%20Supplements%20Online&frm=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT%2CdNzYwYj&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&edid=dNzYwYj&hn=www.googleadservices.com&rdp=0&npa=0&pscdl=noapi&auid=1186481008.1792854681&ec_mode=c&oidsrc=3&ecsid2=1288040367.1792854681&_tu=ABI&gcl_ctr=4~0~0~0&data=event%3Dpage_view%3Bshopify_event_name%3Dpage_viewed%3Bpage_path%3D%2F&category=acrcp_v1_512&em=tv.1&emd=tvd.1&ept=5&ct_cookie_present=false&eoid=CkgKEQjwrvHWBhCI_rap4daOpawBEjMA22jpFHRSlD_hFo3NHUWSHBw4uYfHlpcGGedY5Bx9RtWM5yI5yFiF1XzBjemYUfnjymnw_wcB&crd=CLTesQII8t-xAgit4bECCK_hsQIIobixAgixwbECCLDBsQIIscOxAgiKxbECCMLJsQII1-ixAgi0xrECCIfbsQII08WxAgjrzLECCO3OsQII1c-xAgiK8rECCIvysQII9NqxAgji6rECCOjusQIIt_KxAgiS67ECCMnjsQIIl9SxAgjJ27ECCKbdsQIIsN6xAgiA27ECCM3hsQI&cerd=CgjV1b4tueu-LQ&fsk=ChEI8K7x1gYQ2JGto_T97c2uARIsAEgPOses2HGGa-G8NeLonl7a5yjf9W5REgq7MXS4uOeo9dEq8WPQSQSoBgwaAjYS&is_vtc=1&cid=CAQS4gEAQM4h3FM8YEU-tIdmOilSzikbTg32bJT3Em3bgkU86NvIsjrXq7jcfMd0X8zE9Zwjo2Vfa-E0mNKw6Py4P69V-Z0VkXnn7f6T9kaledLs2exZQb28W7StWKvYzr7XVZnHq_Dv6cECwJ2pKCoHNDxlxy0HmemK6TB7YqQ83em9GdIwtpI8PCTn4IRnPUp216Guf_P3sn7KZ93MTkhBM8VE-TBPKjwCQw6xk4FHDayslmwjXS7M13PdtSYnY50Zh6KkqCl_d_g6RD0tKLgQuZyNyfe6Lb-rb7t78PjlyA8i4dJx&random=2944705325&ipr=y&pscrd=IhMI562bkfjSlwMVbrRjBh3qET05Oh9odHRwczovL3dlbGxiZWluZ251dHJpdGlvbi5jb20vQldDaEVJOEs3eDFnWVFydHpvb01lWnJ2T09BUklzQUZOSmpCRTNOWU5YMlNTNHYwM1dad0NrcnpiZFZPdExPS0taUG50YUYzTGFlUml3STRwUHZ1VGVjUXN6DAgJYggIABAAGAAgAIIBE3ABiAEB4gEBAvEBBuo3IV4S3D8",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    },
+    {
+      "url": "https://wellbeingnutrition.com/.well-known/shopify/monorail/unstable/produce_batch",
+      "failure": "net::ERR_ABORTED",
+      "viewport": "desktop"
+    }
+  ],
+  "audit_log": [
+    "[20:41:12] ╔═══════════════════════════════════════════════════════╗",
+    "[20:41:12] ║   WELLBEING NUTRITION CRO AUDIT — Playwright Script   ║",
+    "[20:41:12] ╚═══════════════════════════════════════════════════════╝",
+    "[20:41:12] Target: https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+    "[20:41:12] Started: 2026-10-24T20:41:12.268143",
+    "[20:41:14] Browser launched: Chromium (headless)",
+    "[20:41:14] === PHASE 1: DESKTOP INSPECTION (1440×900) ===",
+    "[20:41:14]   Navigating to https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+    "[20:41:20]   HTTP status: 200",
+    "[20:41:25]   📸  Full-page screenshot saved: desktop_full_page.png",
+    "[20:41:26]   📸  Screenshot saved: desktop_hero_atf.png",
+    "[20:41:26]   Product title: 'Pure Korean Marine Collagen Peptides | Unflavored | Combat Signs of Ageing'",
+    "[20:41:26]   Price element: '₹1,745'",
+    "[20:41:26]   Subscription option: NOT DETECTED via common selectors",
+    "[20:41:26]   Variant/option elements found: 8",
+    "[20:41:26]   Quantity input found: True",
+    "[20:41:26]   ATC button found via: button[name='add']",
+    "[20:41:26]   ATC button Y position: 1498px | Above fold: False",
+    "[20:41:26]   Reviews: NOT DETECTED via common selectors",
+    "[20:41:27]   Trust badges found: True",
+    "[20:41:27]   FAQ/accordion section: True",
+    "[20:41:27]   Shipping info mentioned on page: False",
+    "[20:41:27]   Returns info mentioned on page: True",
+    "[20:41:28]   📸  Screenshot saved: desktop_mid_page.png",
+    "[20:41:29]   📸  Screenshot saved: desktop_lower_page.png",
+    "[20:41:30]   Testing ATC click...",
+    "[20:41:31]   📸  Screenshot saved: desktop_pre_atc_click.png",
+    "[20:41:33]   📸  Screenshot saved: desktop_post_atc_click.png",
+    "[20:41:33]   ATC click executed. Inspecting cart feedback...",
+    "[20:41:33]   Cart drawer visible: [class*='drawer']",
+    "[20:41:34]   📸  Screenshot saved: desktop_cart_drawer.png",
+    "[20:41:38]   📸  Screenshot saved: desktop_cart_page.png",
+    "[20:41:38]   Cart page: contains items",
+    "[20:41:38] === PHASE 2: MOBILE INSPECTION (390×844 – iPhone 14 Pro) ===",
+    "[20:41:39]   Navigating to https://wellbeingnutrition.com/products/korean-marine-collagen-peptides?qty=1",
+    "[20:41:44]   📸  Screenshot saved: mobile_hero_atf.png",
+    "[20:41:45]   📸  Full-page screenshot saved: mobile_full_page.png",
+    "[20:41:46]   Mobile ATC Y: 787px | Viewport height: 844",
+    "[20:41:46]   Touch targets < 44px (sample of 20): 1",
+    "[20:41:49]   📸  Screenshot saved: mobile_mid_page.png",
+    "[20:41:50]   📸  Screenshot saved: mobile_bottom_page.png",
+    "[20:41:50]   Body font info: {'fontSize': '14px', 'lineHeight': '19.88px', 'color': 'rgb(0, 0, 0)'}",
+    "[20:41:50] === PHASE 3: BASIC ACCESSIBILITY CHECK ===",
+    "[20:41:54]   Images missing alt text: 7",
+    "[20:41:55]   Inputs missing labels: 15",
+    "[20:41:55]   Failed network requests: 59",
+    "[20:41:55]   JavaScript console errors: 8"
+  ]
+}

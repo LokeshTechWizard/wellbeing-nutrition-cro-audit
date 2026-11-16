@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Korean Marine Collagen Peptides — CRO Prototype V2</title>
+  <meta name="description" content="CRO prototype V2 demonstrating improved purchase journey. Not the live Wellbeing Nutrition website." />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PROTOTYPE V2 NOTICE: Academic prototype for Inter IIT Tech Meet 15.0.
+       NOT the live Wellbeing Nutrition website.
+       Product images sourced from the public Wellbeing Nutrition CDN.
+       Prices, policies, and operational data marked [ILLUSTRATIVE].
+  ═══════════════════════════════════════════════════════════════ -->
+
+  <style>
+    /* ── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brand-green: #2d6a4f;
+      --brand-teal:  #40916c;
+      --brand-light: #d8f3dc;
+      --brand-pale:  #f0faf2;
+      --accent:      #e76f51;
+      --text-dark:   #1a1a2e;
+      --text-mid:    #4a4a6a;
+      --text-light:  #7a7a9a;
+      --border:      #e0e0ea;
+      --white:       #ffffff;
+      --shadow-sm:   0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md:   0 4px 20px rgba(0,0,0,0.12);
+      --radius:      12px;
+      --radius-sm:   8px;
+      --transition:  0.2s ease;
+      --notice-h:    40px;
+      --header-h:    64px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--brand-green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ── Prototype Banner ─────────────────────────────────────── */
+    .prototype-notice {
+      background: #fff3cd;
+      border-bottom: 2px solid #ffc107;
+      color: #664d03;
+      font-size: 12px;
+      padding: 0 16px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      height: var(--notice-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .prototype-notice strong { font-weight: 700; }
+
+    /* ── Header / Nav ─────────────────────────────────────────── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      position: sticky;
+      top: var(--notice-h);
+      z-index: 900;
+      height: var(--header-h);
+    }
+    .logo { font-size: 20px; font-weight: 800; color: var(--brand-green); letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    .header-actions { display: flex; gap: 16px; align-items: center; }
+    .cart-icon-btn {
+      position: relative;
+      padding: 8px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      display: flex;
+      align-items: center;
+      min-width: 44px; min-height: 44px;
+      justify-content: center;
+    }
+    .cart-badge {
+      position: absolute;
+      top: 0; right: 0;
+      background: var(--accent);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    .cart-badge.bump { animation: bump 0.3s ease; }
+    @keyframes bump {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.5); }
+      100% { transform: scale(1); }
+    }
+
+    /* ── Product Page Wrapper ─────────────────────────────────── */
+    .product-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 16px 140px;    /* reduced top padding to pull ATC up */
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── Image Gallery ─────────────────────────────────────────
+       V2 FIX: sticky ONLY on desktop (≥992px) with height cap.
+       On mobile/tablet: normal inline flow (position: relative).
+    ──────────────────────────────────────────────────────────── */
+    .gallery {
+      position: relative;    /* mobile/tablet default — no floating */
+    }
+    @media (min-width: 992px) {
+      .gallery {
+        position: sticky;
+        top: calc(var(--notice-h) + var(--header-h) + 16px);
+        max-height: calc(100vh - var(--notice-h) - var(--header-h) - 32px);
+        overflow: visible;
+      }
+    }
+
+    .gallery-main {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--brand-pale);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    /* V2: Real product image — contain so proportions aren't cropped */
+    .gallery-main-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;   /* was cover — changed so product is fully visible */
+      transition: opacity 0.3s ease;
+      border-radius: var(--radius);
+    }
+    .gallery-main-img.loading { opacity: 0.4; }
+
+    /* Fallback placeholder (shown if image fails to load) */
+    .img-fallback {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--brand-pale) 0%, var(--brand-light) 100%);
+      color: var(--brand-teal);
+      font-size: 14px;
+      text-align: center;
+      padding: 20px;
+      gap: 12px;
+      position: absolute;
+      inset: 0;
+    }
+    .img-fallback .product-icon { font-size: 80px; line-height: 1; }
+    .img-fallback .img-label { font-size: 13px; color: var(--text-light); font-style: italic; }
+
+    /* V2: Thumbnail strip with real images */
+    .gallery-thumbs {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .thumb {
+      width: 68px; height: 68px;
+      border-radius: var(--radius-sm);
+      background: var(--brand-pale);
+      border: 2px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+      flex-shrink: 0;
+    }
+    .thumb img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .thumb.active, .thumb:focus { border-color: var(--brand-green); outline: none; }
+    .thumb:hover { border-color: var(--brand-teal); transform: scale(1.04); }
+
+    /* ── Product Info Panel ───────────────────────────────────── */
+    .product-info { display: flex; flex-direction: column; gap: 14px; }  /* tighter gap to pull ATC up */
+
+    /* Breadcrumb */
+    .breadcrumb { font-size: 13px; color: var(--text-light); }
+    .breadcrumb a { color: var(--text-light); }
+    .breadcrumb a:hover { color: var(--brand-green); }
+
+    /* Badges */
+    .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .badge-green  { background: var(--brand-light); color: var(--brand-green); }
+    .badge-orange { background: #fff0eb; color: #c94a1e; }
+
+    /* Title */
+    .product-title {
+      font-size: clamp(20px, 3.5vw, 28px);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-dark);
+    }
+
+    /* Rating */
+    .rating-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .stars { color: #f4a807; font-size: 18px; letter-spacing: 1px; }
+    .rating-count { font-size: 14px; color: var(--text-light); }
+    .rating-label { font-size: 13px; font-style: italic; color: var(--text-light); }
+
+    /* CRO #5 — Benefit Bullets */
+    .benefits-strip {
+      background: var(--brand-pale);
+      border: 1px solid var(--brand-light);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+    }
+    .benefits-strip h3 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--brand-teal);
+      margin-bottom: 10px;
+    }
+    .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .benefit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+    .benefit-list li::before {
+      content: "✓";
+      color: var(--brand-green);
+      font-weight: 700;
+      font-size: 15px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Price */
+    .price-area { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .price-current { font-size: 32px; font-weight: 800; color: var(--text-dark); }
+    .price-original { font-size: 18px; color: var(--text-light); text-decoration: line-through; }
+    .price-save {
+      font-size: 14px; font-weight: 700; color: var(--accent);
+      background: #fff0eb; padding: 3px 8px; border-radius: 20px;
+    }
+    .price-illustrative { font-size: 12px; color: var(--text-light); font-style: italic; }
+
+    /* Purchase-type selector (subscribe vs one-time) */
+    .purchase-type { display: flex; flex-direction: column; gap: 8px; }
+    .purchase-type > label { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+    .purchase-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .purchase-option {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .purchase-option:hover { border-color: var(--brand-teal); }
+    .purchase-option.selected { border-color: var(--brand-green); background: var(--brand-pale); }
+    .purchase-option input[type="radio"] { display: none; }
+    .po-title { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+    .po-price { font-size: 18px; font-weight: 800; color: var(--brand-green); }
+    .po-desc  { font-size: 12px; color: var(--text-light); }
+
+    /* Pack selector */
+    .pack-selector { display: flex; flex-direction: column; gap: 8px; }
+    .pack-selector > label { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+    .pack-options { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pack-btn {
+      padding: 10px 20px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 600;
+      color: var(--text-dark); background: var(--white);
+      transition: all var(--transition);
+      min-height: 44px; min-width: 80px;
+    }
+    .pack-btn:hover { border-color: var(--brand-teal); }
+    .pack-btn.active { border-color: var(--brand-green); background: var(--brand-green); color: var(--white); }
+
+    /* Quantity */
+    .qty-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .qty-row > label { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+    .qty-control {
+      display: flex; align-items: center;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .qty-btn {
+      width: 44px; height: 44px;
+      font-size: 22px; font-weight: 700;
+      color: var(--text-dark); background: var(--white);
+      transition: background var(--transition);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--brand-pale); }
+    .qty-display {
+      width: 52px; text-align: center;
+      font-size: 16px; font-weight: 700;
+      border-left: 2px solid var(--border);
+      border-right: 2px solid var(--border);
+      padding: 0 8px; height: 44px; line-height: 44px;
+    }
+
+    /* CRO #1 — ATC Button */
+    .atc-area { display: flex; flex-direction: column; gap: 12px; }
+    .atc-btn {
+      width: 100%;
+      padding: 18px 24px;
+      background: var(--brand-green); color: var(--white);
+      font-size: 18px; font-weight: 700;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; letter-spacing: 0.3px; min-height: 58px;
+    }
+    .atc-btn:hover { background: var(--brand-teal); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .atc-btn:active { transform: translateY(0); }
+    .atc-btn.added { background: #155724; animation: pulse-green 0.4s ease; }
+    @keyframes pulse-green {
+      0%   { box-shadow: 0 0 0 0 rgba(45,106,79,0.5); }
+      70%  { box-shadow: 0 0 0 12px rgba(45,106,79,0); }
+      100% { box-shadow: 0 0 0 0 rgba(45,106,79,0); }
+    }
+
+    /* CRO #2 — Trust Strip */
+    .trust-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      background: var(--brand-pale);
+      border-radius: var(--radius-sm); padding: 12px;
+      border: 1px solid var(--brand-light);
+    }
+    .trust-item {
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      gap: 4px; padding: 6px;
+    }
+    .trust-icon { font-size: 22px; }
+    .trust-label { font-size: 12px; font-weight: 700; color: var(--brand-green); }
+    .trust-sublabel { font-size: 11px; color: var(--text-light); line-height: 1.3; }
+
+    /* CRO #3 — Guarantee Badge */
+    .guarantee-badge {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      background: #f8f9fa; border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px; color: var(--text-mid);
+    }
+    .guarantee-badge .gi { font-size: 22px; }
+
+    /* CRO #4 — Cart Drawer */
+    .cart-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1000; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+    .cart-drawer {
+      position: fixed; top: 0; right: 0;
+      width: min(420px, 100vw); height: 100%;
+      background: var(--white); z-index: 1001;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; flex-direction: column;
+      box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cart-header h2 { font-size: 20px; font-weight: 700; }
+    .cart-close {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; background: var(--border);
+      transition: background var(--transition);
+    }
+    .cart-close:hover { background: #d0d0d8; }
+    .cart-body {
+      flex: 1; overflow-y: auto;
+      padding: 20px 24px; display: flex;
+      flex-direction: column; gap: 16px;
+    }
+    .cart-item {
+      display: flex; gap: 14px; padding: 14px;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      align-items: flex-start;
+    }
+    .cart-item-img {
+      width: 70px; height: 70px;
+      border-radius: var(--radius-sm);
+      background: var(--brand-pale);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .cart-item-img img { width: 100%; height: 100%; object-fit: contain; }
+    .cart-item-details { flex: 1; }
+    .cart-item-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .cart-item-variant { font-size: 12px; color: var(--text-light); margin-bottom: 8px; }
+    .cart-item-footer { display: flex; align-items: center; justify-content: space-between; }
+    .cart-item-price { font-size: 16px; font-weight: 700; color: var(--brand-green); }
+    .cart-item-qty { font-size: 13px; color: var(--text-light); }
+    .cart-empty-msg { text-align: center; color: var(--text-light); padding: 40px 20px; font-size: 15px; }
+    .cart-added-animation {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px;
+      background: var(--brand-pale);
+      border-radius: var(--radius-sm); border: 1px solid var(--brand-light);
+      font-size: 14px; font-weight: 600; color: var(--brand-green);
+    }
+    .cart-footer {
+      padding: 20px 24px; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .cart-subtotal { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; }
+    .cart-free-shipping {
+      font-size: 13px; color: var(--brand-green);
+      text-align: center; padding: 8px;
+      background: var(--brand-pale); border-radius: var(--radius-sm);
+    }
+
+    /* Free-shipping progress bar */
+    .shipping-progress-wrap {
+      background: var(--border);
+      border-radius: 10px; height: 6px;
+      overflow: hidden;
+    }
+    .shipping-progress-bar {
+      height: 100%; background: var(--brand-green);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
+    .checkout-btn {
+      width: 100%; padding: 16px;
+      background: var(--accent); color: var(--white);
+      font-size: 17px; font-weight: 700;
+      border-radius: var(--radius);
+      transition: all 0.2s; letter-spacing: 0.3px;
+    }
+    .checkout-btn:hover { background: #c94a1e; transform: translateY(-1px); }
+    .continue-shopping-btn {
+      width: 100%; padding: 12px;
+      border: 2px solid var(--border); border-radius: var(--radius);
+      font-size: 15px; font-weight: 600; color: var(--text-dark); background: var(--white);
+      transition: all 0.2s;
+    }
+    .continue-shopping-btn:hover { border-color: var(--text-dark); }
+    .checkout-note { font-size: 12px; color: var(--text-light); text-align: center; }
+
+    /* CRO #1 — Sticky Mobile ATC Bar
+       V2 FIX: display:none by default; only shown on ≤768px via media query.
+       Uses translate to avoid layout shift.
+    ─────────────────────────────────────────────────────────────────────── */
+    .sticky-atc-bar { display: none; }
+
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: 1fr; gap: 24px; }
+
+      .sticky-atc-bar {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        background: var(--white);
+        padding: 10px 16px 18px;  /* extra bottom for home-bar notch */
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+        z-index: 800;
+        align-items: center;
+        gap: 12px;
+        transform: translateY(110%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        border-top: 1px solid var(--border);
+      }
+      .sticky-atc-bar.visible { transform: translateY(0); }
+
+      .sticky-price-block { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+      .sticky-price { font-size: 18px; font-weight: 800; color: var(--text-dark); white-space: nowrap; }
+      .sticky-variant { font-size: 12px; color: var(--text-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .sticky-atc-btn {
+        padding: 14px 22px;
+        background: var(--brand-green); color: var(--white);
+        font-size: 16px; font-weight: 700;
+        border-radius: var(--radius-sm);
+        white-space: nowrap; min-height: 50px;
+        display: flex; align-items: center; gap: 6px;
+        flex-shrink: 0;
+      }
+      .sticky-atc-btn:hover { background: var(--brand-teal); }
+    }
+
+    /* Description details/summary */
+    details summary {
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0;
+    }
+    details summary::-webkit-details-marker { display: none; }
+    details summary::after { content: '+'; font-size: 22px; color: var(--brand-green); font-weight: 400; flex-shrink: 0; }
+    details[open] summary::after { content: '−'; }
+    .product-description { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-top: 12px; }
+    .product-description p { margin-bottom: 12px; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); }
+
+    /* FAQs */
+    .faq-section { display: flex; flex-direction: column; }
+    .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+    details.faq-item { border-bottom: 1px solid var(--border); }
+    details.faq-item:first-of-type { border-top: 1px solid var(--border); }
+    details.faq-item summary {
+      font-size: 15px; font-weight: 600;
+      padding: 16px 0; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--text-dark);
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary::after { content: '+'; font-size: 22px; color: var(--brand-green); font-weight: 400; flex-shrink: 0; }
+    details[open].faq-item summary::after { content: '−'; }
+    details.faq-item .faq-body { font-size: 14px; color: var(--text-mid); padding-bottom: 16px; line-height: 1.7; }
+
+    /* Reviews */
+    .reviews-section { display: flex; flex-direction: column; gap: 20px; }
+    .reviews-section h2 { font-size: 20px; font-weight: 700; }
+    .reviews-summary {
+      display: flex; align-items: center; gap: 24px;
+      padding: 20px; background: var(--brand-pale);
+      border-radius: var(--radius); flex-wrap: wrap;
+    }
+    .big-rating { font-size: 52px; font-weight: 800; color: var(--text-dark); line-height: 1; }
+    .rating-details { display: flex; flex-direction: column; gap: 4px; }
+    .review-disclaimer { font-size: 12px; color: var(--text-light); font-style: italic; }
+    .review-cards { display: flex; flex-direction: column; gap: 12px; }
+    .review-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .review-header { display: flex; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+    .reviewer-name { font-size: 14px; font-weight: 700; }
+    .review-date { font-size: 12px; color: var(--text-light); }
+    .review-stars { color: #f4a807; font-size: 14px; margin-bottom: 6px; }
+    .review-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .review-body { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+    .review-verified { font-size: 12px; color: var(--brand-green); margin-top: 6px; }
+
+    /* Bottom sections */
+    .page-bottom-sections {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 16px 100px;
+      display: flex; flex-direction: column; gap: 48px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 90px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text-dark); color: var(--white);
+      padding: 12px 24px; border-radius: 24px;
+      font-size: 14px; font-weight: 600;
+      opacity: 0; transition: all 0.3s;
+      z-index: 1200; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* CRO annotation labels */
+    .cro-label {
+      display: inline-block;
+      background: #6610f2; color: white;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 6px; border-radius: 4px;
+      letter-spacing: 0.5px; vertical-align: middle;
+      margin-left: 6px; text-transform: uppercase;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--text-dark); color: #aaaacc;
+      padding: 40px 24px 60px;
+      text-align: center; font-size: 13px; line-height: 1.8;
+    }
+    .site-footer a { color: #aaaacc; }
+    .footer-disclaimer {
+      margin-top: 20px; padding: 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px; font-style: italic;
+      font-size: 12px; color: #888899;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      .purchase-options { grid-template-columns: 1fr; }
+      .trust-strip { grid-template-columns: 1fr; }
+      .trust-item { flex-direction: row; text-align: left; }
+      .reviews-summary { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Prototype Notice ─── -->
+<div class="prototype-notice" role="banner">
+  <span>
+    <strong>⚠ PROTOTYPE V2 — ACADEMIC USE ONLY</strong> ·
+    Not the live Wellbeing Nutrition website ·
+    Prices &amp; policies marked <strong>[ILLUSTRATIVE]</strong>
+  </span>
+</div>
+
+<!-- ─── Header ─── -->
+<header class="site-header" role="banner">
+  <div class="logo">wellbeing<span>·</span>nutrition</div>
+  <nav class="header-actions" aria-label="Header actions">
+    <button class="cart-icon-btn" id="cartIconBtn"
+            aria-label="Open cart" onclick="openCart()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge"
+            aria-live="polite" aria-label="0 items in cart">0</span>
+    </button>
+  </nav>
+</header>
+
+<!-- ─── Main Product Page ─── -->
+<main class="product-page" id="main-content">
+  <div class="product-grid">
+
+    <!-- ══════════════════════════════════════════
+         LEFT: Image Gallery (V2 — real CDN images)
+    ══════════════════════════════════════════ -->
+    <section class="gallery" aria-label="Product images">
+
+      <div class="gallery-main" id="galleryMain"
+           role="img"
+           aria-label="Korean Marine Collagen Peptides — product image">
+        <!-- V2: real CDN image with fallback -->
+        <img
+          class="gallery-main-img"
+          id="mainImg"
+          src="https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-100g-Front.jpg"
+          alt="Pure Korean Marine Collagen Peptides 100g pouch — front view"
+          onerror="this.style.display='none'; document.getElementById('mainFallback').style.display='flex';"
+        />
+        <div class="img-fallback" id="mainFallback" aria-hidden="true">
+          <div class="product-icon">🧴</div>
+          <div style="font-size:15px;font-weight:700;color:var(--brand-green)">
+            Korean Marine<br>Collagen Peptides
+          </div>
+          <div class="img-label">
+            [Image unavailable — sourced from wellbeingnutrition.com CDN]
+          </div>
+        </div>
+      </div>
+
+      <!-- V2: Thumbnail strip with real images -->
+      <div class="gallery-thumbs" role="list" aria-label="Product image thumbnails">
+
+        <button class="thumb active" role="listitem"
+                aria-label="Front view" aria-pressed="true"
+                onclick="selectThumb(this,
+                  'https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-100g-Front.jpg',
+                  'Pure Korean Marine Collagen Peptides 100g pouch — front view')">
+          <img src="https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-100g-Front.jpg"
+               alt="Front view thumbnail"
+               onerror="this.parentElement.innerHTML='🧴'" />
+        </button>
+
+        <button class="thumb" role="listitem"
+                aria-label="Nutrition info / label view" aria-pressed="false"
+                onclick="selectThumb(this,
+                  'https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-Back-Nutritional-Info.jpg',
+                  'Korean Marine Collagen Peptides — back label and nutritional information')">
+          <img src="https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-Back-Nutritional-Info.jpg"
+               alt="Nutritional info thumbnail"
+               onerror="this.parentElement.innerHTML='📋'" />
+        </button>
+
+        <button class="thumb" role="listitem"
+                aria-label="Scoop and glass lifestyle view" aria-pressed="false"
+                onclick="selectThumb(this,
+                  'https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-Scoop-Glass.jpg',
+                  'Korean Marine Collagen Peptides — scoop and glass lifestyle shot')">
+          <img src="https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-Scoop-Glass.jpg"
+               alt="Lifestyle scoop thumbnail"
+               onerror="this.parentElement.innerHTML='✨'" />
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         RIGHT: Product Information
+    ══════════════════════════════════════════ -->
+    <section class="product-info" aria-labelledby="product-title">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#">Home</a> / <a href="#">Collagen</a> /
+        Pure Korean Marine Collagen Peptides
+      </nav>
+
+      <!-- Badges -->
+      <div class="badge-row" role="list">
+        <span class="badge badge-green" role="listitem">🌿 Marine Sourced</span>
+        <span class="badge badge-green" role="listitem">✓ Hydrolysed Type I &amp; III</span>
+        <span class="badge badge-orange" role="listitem">🔥 Bestseller</span>
+      </div>
+
+      <!-- Title (matches live site) -->
+      <h1 class="product-title" id="product-title">
+        Pure Korean Marine Collagen Peptides
+        <span style="display:block;font-size:clamp(14px,2vw,18px);font-weight:500;
+                     color:var(--text-mid);margin-top:4px;">
+          Unflavored · Combat Signs of Ageing
+        </span>
+      </h1>
+
+      <!-- Rating -->
+      <div class="rating-row">
+        <div class="stars" aria-label="4.5 out of 5 stars">★★★★½</div>
+        <span class="rating-count">4.5 / 5</span>
+        <span class="rating-label">[ILLUSTRATIVE — actual rating from live site]</span>
+      </div>
+
+      <!-- CRO #5 — Benefit Bullets ABOVE price -->
+      <div class="benefits-strip" aria-labelledby="benefits-heading">
+        <h3 id="benefits-heading">
+          Key Benefits
+          <span class="cro-label">CRO #5</span>
+        </h3>
+        <ul class="benefit-list">
+          <li>Supports visible skin hydration and elasticity</li>
+          <li>Promotes joint flexibility and mobility</li>
+          <li>Sourced from wild-caught Korean marine fish</li>
+          <li>Hydrolysed peptides — high bioavailability, mixes instantly</li>
+          <li>Unflavoured &amp; odourless — add to any drink or recipe</li>
+        </ul>
+        <p style="font-size:12px;color:var(--text-light);margin-top:10px;font-style:italic;">
+          [ILLUSTRATIVE — verify against product labelling and regulatory guidelines]
+        </p>
+      </div>
+
+      <!-- Price -->
+      <div class="price-area" aria-label="Product pricing">
+        <span class="price-current" id="displayPrice" aria-live="polite">₹1,745</span>
+        <span class="price-original" id="originalPrice">₹2,320</span>
+        <span class="price-save" id="saveBadge">Save 25%</span>
+      </div>
+      <p class="price-illustrative">
+        [ILLUSTRATIVE — actual live price: ₹1,745. Discount % unverified.]
+      </p>
+
+      <hr class="section-divider" />
+
+      <!-- Subscribe vs One-Time -->
+      <div class="purchase-type"
+           role="group" aria-labelledby="purchase-type-label">
+        <label id="purchase-type-label">
+          How would you like to buy?
+          <span class="cro-label">CRO #2</span>
+        </label>
+        <div class="purchase-options"
+             role="radiogroup" aria-labelledby="purchase-type-label">
+          <label class="purchase-option selected"
+                 id="opt-subscribe" for="radio-subscribe">
+            <input type="radio" name="purchase_type"
+                   id="radio-subscribe" value="subscribe"
+                   checked onchange="selectPurchaseType('subscribe')" />
+            <span class="po-title">🔁 Subscribe &amp; Save</span>
+            <span class="po-price" id="subscribePrice">₹1,570</span>
+            <span class="po-desc">~10% off every order · Cancel anytime</span>
+            <span class="po-desc" style="font-style:italic;font-size:11px">
+              [ILLUSTRATIVE discount]
+            </span>
+          </label>
+          <label class="purchase-option" for="radio-onetime">
+            <input type="radio" name="purchase_type"
+                   id="radio-onetime" value="onetime"
+                   onchange="selectPurchaseType('onetime')" />
+            <span class="po-title">💳 One-time Purchase</span>
+            <span class="po-price" id="onetimePrice">₹1,745</span>
+            <span class="po-desc">No commitment</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Pack size -->
+      <div class="pack-selector"
+           role="group" aria-labelledby="pack-label">
+        <label id="pack-label">Pack Size</label>
+        <div class="pack-options"
+             role="radiogroup" aria-labelledby="pack-label">
+          <button class="pack-btn active"
+                  onclick="selectPack(this,'100g',1745)"
+                  aria-pressed="true" aria-label="100g pack">
+            100g
+          </button>
+          <button class="pack-btn"
+                  onclick="selectPack(this,'200g',3290)"
+                  aria-pressed="false" aria-label="200g pack">
+            200g
+          </button>
+          <button class="pack-btn"
+                  onclick="selectPack(this,'300g',4699)"
+                  aria-pressed="false" aria-label="300g pack">
+            300g
+          </button>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);font-style:italic;">
+          [ILLUSTRATIVE pack sizes and pricing]
+        </p>
+      </div>
+
+      <!-- Quantity -->
+      <div class="qty-row">
+        <label for="qty-display">Quantity</label>
+        <div class="qty-control" role="group" aria-label="Quantity selector">
+          <button class="qty-btn" onclick="changeQty(-1)"
+                  aria-label="Decrease quantity">−</button>
+          <div class="qty-display" id="qty-display"
+               role="status" aria-live="polite"
+               aria-label="Current quantity: 1">1</div>
+          <button class="qty-btn" onclick="changeQty(1)"
+                  aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- ══ ATC Area ══ -->
+      <div class="atc-area" aria-label="Purchase actions">
+
+        <!-- Main ATC button -->
+        <button class="atc-btn" id="atcBtn"
+                onclick="addToCart()"
+                aria-label="Add Korean Marine Collagen Peptides to cart">
+          <span id="atcBtnText">🛒 Add to Cart</span>
+        </button>
+
+        <!-- CRO #2 — Shipping & Returns Trust Strip -->
+        <div class="trust-strip"
+             aria-label="Shipping and returns information">
+          <div class="trust-item">
+            <span class="trust-icon" aria-hidden="true">🚚</span>
+            <span class="trust-label">Free Shipping</span>
+            <span class="trust-sublabel">
+              On orders over ₹999<br>
+              <em>[ILLUSTRATIVE]</em>
+            </span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon" aria-hidden="true">📦</span>
+            <span class="trust-label">Fast Delivery</span>
+            <span class="trust-sublabel">
+              3–5 business days<br>
+              <em>[ILLUSTRATIVE]</em>
+            </span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon" aria-hidden="true">↩️</span>
+            <span class="trust-label">Easy Returns</span>
+            <span class="trust-sublabel">
+              30-day policy<br>
+              <em>[ILLUSTRATIVE]</em>
+            </span>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--text-light);font-style:italic;">
+          <span class="cro-label">CRO #2</span>
+          Trust strip — confirm all values with Wellbeing Nutrition before live use.
+        </p>
+
+        <!-- CRO #3 — Guarantee Badge -->
+        <div class="guarantee-badge"
+             role="note" aria-label="Money-back guarantee">
+          <span class="gi" aria-hidden="true">🛡️</span>
+          <span>
+            <strong>30-Day Money-Back Guarantee</strong>
+            <span class="cro-label">CRO #3</span><br>
+            <span style="font-size:12px;color:var(--text-light)">
+              Not satisfied? Full refund, no questions asked.
+              [ILLUSTRATIVE — verify actual policy]
+            </span>
+          </span>
+        </div>
+
+      </div><!-- /atc-area -->
+
+      <!-- About This Product -->
+      <details open>
+        <summary>
+          About This Product
+          <span style="color:var(--brand-green);font-size:20px;"></span>
+        </summary>
+        <div class="product-description">
+          <p>
+            Pure Korean Marine Collagen Peptides are sourced from wild-caught
+            Korean marine fish and hydrolysed into small peptides for maximum
+            bioavailability. Type I and Type III collagen supports skin structure,
+            joint health, and connective tissue.
+          </p>
+          <p>
+            Unflavoured and odourless — dissolve one scoop in water, juice,
+            smoothies, or coffee. Each serving provides a precise dose of
+            collagen peptides.
+          </p>
+          <p style="font-style:italic;color:var(--text-light);font-size:13px;">
+            [ILLUSTRATIVE description — actual product description, ingredients,
+            and nutritional information must be verified from the live product
+            page and product labelling.]
+          </p>
+        </div>
+      </details>
+
+    </section><!-- /product-info -->
+  </div><!-- /product-grid -->
+</main>
+
+<!-- ─── Bottom Sections ─── -->
+<div class="page-bottom-sections">
+
+  <!-- FAQs -->
+  <section aria-labelledby="faq-heading">
+    <div class="faq-section">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+      <details class="faq-item">
+        <summary>How do I use Korean Marine Collagen Peptides?</summary>
+        <div class="faq-body">
+          Mix one scoop into 200–250 ml of water, juice, or your favourite
+          beverage once daily. It dissolves easily and is unflavoured.
+          [ILLUSTRATIVE — verify actual usage instructions.]
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>When will I see results?</summary>
+        <div class="faq-body">
+          Individual results vary. Consistent daily use over 8–12 weeks is
+          typically recommended. [ILLUSTRATIVE — no clinical claims are made.
+          Verify against product labelling and regulatory guidelines.]
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Is it suitable for vegetarians or vegans?</summary>
+        <div class="faq-body">
+          Marine collagen is derived from fish and is not suitable for vegans.
+          [ILLUSTRATIVE — verify with product labelling.]
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What is your return policy?</summary>
+        <div class="faq-body">
+          We offer a 30-day money-back guarantee. If you are not satisfied,
+          contact our customer support team for a full refund.
+          [ILLUSTRATIVE — actual policy must be confirmed with Wellbeing Nutrition.]
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you offer free shipping?</summary>
+        <div class="faq-body">
+          Free standard shipping is available on orders above ₹999.
+          [ILLUSTRATIVE — actual threshold must be confirmed with Wellbeing Nutrition.]
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews-section" aria-labelledby="reviews-heading">
+    <h2 id="reviews-heading">Customer Reviews</h2>
+    <div class="reviews-summary" role="region" aria-label="Rating summary">
+      <div class="big-rating" aria-label="4.5 out of 5 overall rating">4.5</div>
+      <div class="rating-details">
+        <div class="stars" aria-label="4.5 stars">★★★★½</div>
+        <div style="font-size:14px;color:var(--text-mid);">
+          Based on verified purchases
+        </div>
+        <div class="review-disclaimer">
+          [ILLUSTRATIVE — actual rating and count from live site]
+        </div>
+      </div>
+    </div>
+    <div class="review-cards">
+      <article class="review-card" aria-label="Review by Priya M.">
+        <div class="review-header">
+          <span class="reviewer-name">Priya M.</span>
+          <span class="review-date">October 2026</span>
+        </div>
+        <div class="review-stars" aria-label="5 stars">★★★★★</div>
+        <div class="review-title">Noticed a difference in my skin texture</div>
+        <div class="review-body">
+          Been using this for about 6 weeks now and my skin feels noticeably
+          more hydrated. Dissolves completely — no taste or smell.
+        </div>
+        <div class="review-verified">✓ Verified Purchase</div>
+      </article>
+      <article class="review-card" aria-label="Review by Ananya K.">
+        <div class="review-header">
+          <span class="reviewer-name">Ananya K.</span>
+          <span class="review-date">September 2026</span>
+        </div>
+        <div class="review-stars" aria-label="4 stars">★★★★☆</div>
+        <div class="review-title">Good quality, delivery was fast</div>
+        <div class="review-body">
+          Packaging is premium and the collagen mixes well.
+          Only wish there was more sourcing information on the label.
+        </div>
+        <div class="review-verified">✓ Verified Purchase</div>
+      </article>
+      <p class="review-disclaimer" style="text-align:center;padding-top:8px;">
+        [ILLUSTRATIVE reviews — actual verified reviews from the live website
+        are not reproduced here]
+      </p>
+    </div>
+  </section>
+
+</div><!-- /page-bottom-sections -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     CRO #1 — Sticky Mobile ATC Bar
+     Appears after 300px scroll on ≤768px screens only.
+     V2 FIX: display:none default, shown only via @media (max-width:768px)
+══════════════════════════════════════════════════════════════ -->
+<div class="sticky-atc-bar" id="stickyBar"
+     role="complementary"
+     aria-label="Sticky add to cart — CRO intervention #1">
+  <div class="sticky-price-block">
+    <span class="sticky-price" id="stickyPrice" aria-live="polite">₹1,745</span>
+    <span class="sticky-variant" id="stickyVariant">100g · One-time</span>
+  </div>
+  <button class="sticky-atc-btn" onclick="addToCart()"
+          aria-label="Add to cart">
+    🛒 Add to Cart
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     CRO #4 — Cart Drawer
+══════════════════════════════════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay"
+     onclick="closeCart()" aria-hidden="true"></div>
+
+<aside class="cart-drawer" id="cartDrawer"
+       role="dialog" aria-labelledby="cart-heading" aria-modal="true">
+  <div class="cart-header">
+    <h2 id="cart-heading">
+      Your Cart <span class="cro-label">CRO #4</span>
+    </h2>
+    <button class="cart-close" onclick="closeCart()"
+            aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty-msg" id="cartEmptyMsg">
+      Your cart is empty.
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cartSubtotal" aria-live="polite">₹0</span>
+    </div>
+    <!-- Free-shipping progress bar -->
+    <div>
+      <div id="cartShippingMsg" class="cart-free-shipping"
+           role="status" aria-live="polite">
+        🚚 Free shipping on orders over ₹999 [ILLUSTRATIVE]
+      </div>
+      <div class="shipping-progress-wrap" style="margin-top:6px">
+        <div class="shipping-progress-bar"
+             id="shippingBar" style="width:0%"></div>
+      </div>
+    </div>
+    <button class="checkout-btn"
+            onclick="proceedToCheckout()"
+            aria-label="Proceed to checkout">
+      Proceed to Checkout →
+    </button>
+    <button class="continue-shopping-btn"
+            onclick="closeCart()">
+      Continue Shopping
+    </button>
+    <p class="checkout-note">
+      🔒 Secure checkout · Payments handled by payment gateway
+    </p>
+    <p class="checkout-note" style="font-style:italic;">
+      [No real checkout — prototype only]
+    </p>
+  </div>
+</aside>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ─── Footer ─── -->
+<footer class="site-footer" role="contentinfo">
+  <p>Wellbeing Nutrition | Korean Marine Collagen Peptides</p>
+  <p style="margin-top:6px;">
+    <a href="#" aria-label="Shipping policy (illustrative)">Shipping Policy</a>
+    &nbsp;|&nbsp;
+    <a href="#" aria-label="Returns policy (illustrative)">Returns Policy</a>
+    &nbsp;|&nbsp;
+    <a href="#" aria-label="Privacy policy (illustrative)">Privacy Policy</a>
+  </p>
+  <div class="footer-disclaimer">
+    This is a <strong>CRO Prototype V2</strong> created for
+    Inter IIT Tech Meet 15.0. It is NOT the live Wellbeing Nutrition website.
+    Product images sourced from the public wellbeingnutrition.com CDN.
+    All pricing, policies, and product claims marked [ILLUSTRATIVE]
+    require verification. No real purchases can be made.
+    Created: 2026-10-25.
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════
+     JavaScript — State & Interactions
+════════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── State ─────────────────────────────────────────────────── */
+  const FREE_SHIP_THRESHOLD = 999;   // [ILLUSTRATIVE]
+
+  const state = {
+    quantity: 1,
+    packSize: '100g',
+    packBasePrice: 1745,
+    purchaseType: 'subscribe',
+    cartItems: [],
+    cartCount: 0,
+  };
+
+  function getCurrentPrice() {
+    return state.purchaseType === 'subscribe'
+      ? Math.round(state.packBasePrice * 0.9)
+      : state.packBasePrice;
+  }
+  function getOriginalPrice() {
+    // Illustrative "crossed-out" price (~33% higher)
+    return Math.round(state.packBasePrice * 1.33);
+  }
+  function getSaving() {
+    return Math.round((getOriginalPrice() - getCurrentPrice()) / getOriginalPrice() * 100);
+  }
+
+  /* ── Price display update ───────────────────────────────────── */
+  function updatePriceDisplay() {
+    const curr = getCurrentPrice();
+    const orig = getOriginalPrice();
+    const save = getSaving();
+    document.getElementById('displayPrice').textContent =
+      '₹' + curr.toLocaleString('en-IN');
+    document.getElementById('originalPrice').textContent =
+      '₹' + orig.toLocaleString('en-IN');
+    document.getElementById('saveBadge').textContent = 'Save ' + save + '%';
+    document.getElementById('stickyPrice').textContent =
+      '₹' + curr.toLocaleString('en-IN');
+    document.getElementById('stickyVariant').textContent =
+      state.packSize + ' · ' +
+      (state.purchaseType === 'subscribe' ? 'Subscribe' : 'One-time');
+    // Sync subscribe card price
+    document.getElementById('subscribePrice').textContent =
+      '₹' + Math.round(state.packBasePrice * 0.9).toLocaleString('en-IN');
+    document.getElementById('onetimePrice').textContent =
+      '₹' + state.packBasePrice.toLocaleString('en-IN');
+  }
+
+  /* ── Pack selection ─────────────────────────────────────────── */
+  function selectPack(btn, size, basePrice) {
+    document.querySelectorAll('.pack-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+    state.packSize  = size;
+    state.packBasePrice = basePrice;
+    updatePriceDisplay();
+  }
+
+  /* ── Purchase type ──────────────────────────────────────────── */
+  function selectPurchaseType(type) {
+    state.purchaseType = type;
+    document.querySelectorAll('.purchase-option')
+      .forEach(el => el.classList.remove('selected'));
+    const target = type === 'subscribe'
+      ? document.getElementById('opt-subscribe')
+      : document.querySelector('label[for="radio-onetime"]');
+    if (target) target.classList.add('selected');
+    updatePriceDisplay();
+  }
+
+  /* ── Quantity ───────────────────────────────────────────────── */
+  function changeQty(delta) {
+    state.quantity = Math.max(1, Math.min(10, state.quantity + delta));
+    const disp = document.getElementById('qty-display');
+    disp.textContent = state.quantity;
+    disp.setAttribute('aria-label', 'Current quantity: ' + state.quantity);
+  }
+
+  /* ── Add to Cart ────────────────────────────────────────────── */
+  function addToCart() {
+    const price = getCurrentPrice();
+    const item = {
+      name: 'Pure Korean Marine Collagen Peptides',
+      variant: state.packSize + ' · ' +
+        (state.purchaseType === 'subscribe' ? 'Subscribe & Save' : 'One-time'),
+      price,
+      qty: state.quantity,
+      imgSrc: 'https://wellbeingnutrition.com/cdn/shop/files/Korean-Collagen-100g-Front.jpg',
+    };
+
+    state.cartItems.push(item);
+    state.cartCount += state.quantity;
+
+    /* badge bump */
+    const badge = document.getElementById('cartBadge');
+    badge.textContent = state.cartCount;
+    badge.setAttribute('aria-label', state.cartCount + ' items in cart');
+    badge.classList.remove('bump');
+    void badge.offsetWidth;
+    badge.classList.add('bump');
+
+    /* button feedback */
+    const btn     = document.getElementById('atcBtn');
+    const btnText = document.getElementById('atcBtnText');
+    btn.classList.add('added');
+    btnText.textContent = '✓ Added to Cart!';
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btnText.textContent = '🛒 Add to Cart';
+    }, 2500);
+
+    openCart();
+    renderCart(item);
+    showToast('✓ Added to cart!');
+  }
+
+  /* ── Cart drawer ────────────────────────────────────────────── */
+  function openCart() {
+    document.getElementById('cartOverlay').classList.add('open');
+    document.getElementById('cartDrawer').classList.add('open');
+    document.getElementById('cartOverlay').removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.querySelector('.cart-close').focus(), 350);
+  }
+
+  function closeCart() {
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.getElementById('cartOverlay').setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    document.getElementById('cartIconBtn').focus();
+  }
+
+  function renderCart(latestItem) {
+    const body      = document.getElementById('cartBody');
+    const footer    = document.getElementById('cartFooter');
+    const emptyMsg  = document.getElementById('cartEmptyMsg');
+
+    /* confirmed flash */
+    const conf = document.createElement('div');
+    conf.className = 'cart-added-animation';
+    conf.innerHTML = '<span style="font-size:22px">✓</span> <span>' +
+      latestItem.name + ' added to cart!</span>';
+    body.insertBefore(conf, body.firstChild);
+    setTimeout(() => conf.remove(), 3000);
+
+    emptyMsg.style.display = 'none';
+    footer.style.display   = 'flex';
+
+    /* rebuild item list */
+    body.querySelectorAll('.cart-item').forEach(el => el.remove());
+
+    state.cartItems.forEach(item => {
+      const el = document.createElement('article');
+      el.className = 'cart-item';
+      el.setAttribute('aria-label', 'Cart item: ' + item.name);
+      el.innerHTML = `
+        <div class="cart-item-img">
+          <img src="${item.imgSrc}"
+               alt="${item.name}"
+               onerror="this.parentElement.textContent='🧴'" />
+        </div>
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-variant">${item.variant}</div>
+          <div class="cart-item-footer">
+            <span class="cart-item-price">
+              ₹${item.price.toLocaleString('en-IN')}
+            </span>
+            <span class="cart-item-qty">Qty: ${item.qty}</span>
+          </div>
+        </div>`;
+      body.appendChild(el);
+    });
+
+    /* subtotal + shipping progress */
+    const subtotal = state.cartItems.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('cartSubtotal').textContent =
+      '₹' + subtotal.toLocaleString('en-IN');
+
+    const shippingMsg = document.getElementById('cartShippingMsg');
+    const progressBar = document.getElementById('shippingBar');
+    const pct = Math.min(100, Math.round(subtotal / FREE_SHIP_THRESHOLD * 100));
+    progressBar.style.width = pct + '%';
+
+    if (subtotal >= FREE_SHIP_THRESHOLD) {
+      shippingMsg.textContent = '🎉 Free shipping applied!';
+      shippingMsg.style.background = '#d8f3dc';
+    } else {
+      const rem = FREE_SHIP_THRESHOLD - subtotal;
+      shippingMsg.textContent =
+        '🚚 Add ₹' + rem.toLocaleString('en-IN') +
+        ' more for free shipping [ILLUSTRATIVE threshold]';
+      shippingMsg.style.background = '';
+    }
+  }
+
+  /* ── Checkout stub ──────────────────────────────────────────── */
+  function proceedToCheckout() {
+    alert('PROTOTYPE ONLY — No real checkout.\n' +
+          'In the live website this would open the secure payment page.');
+  }
+
+  /* ── Toast ──────────────────────────────────────────────────── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  /* ── Gallery thumbnail switcher (V2) ────────────────────────── */
+  function selectThumb(btn, src, altText) {
+    /* update active thumb */
+    document.querySelectorAll('.thumb').forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+
+    /* swap main image */
+    const mainImg      = document.getElementById('mainImg');
+    const mainFallback = document.getElementById('mainFallback');
+    mainImg.classList.add('loading');
+    mainImg.style.display = 'block';
+    mainFallback.style.display = 'none';
+
+    mainImg.onload  = () => mainImg.classList.remove('loading');
+    mainImg.onerror = () => {
+      mainImg.style.display = 'none';
+      mainFallback.style.display = 'flex';
+    };
+    mainImg.src = src;
+    mainImg.alt = altText;
+
+    /* update gallery aria-label */
+    document.getElementById('galleryMain').setAttribute('aria-label', altText);
+  }
+
+  /* ── Sticky mobile ATC — scroll trigger ─────────────────────── */
+  (function initStickyBar() {
+    const bar = document.getElementById('stickyBar');
+    if (!bar) return;
+    let shown = false;
+    window.addEventListener('scroll', function() {
+      const y = window.scrollY || window.pageYOffset;
+      if (y > 300 && !shown) {
+        bar.classList.add('visible');
+        shown = true;
+      } else if (y <= 300 && shown) {
+        bar.classList.remove('visible');
+        shown = false;
+      }
+    }, { passive: true });
+  })();
+
+  /* ── Keyboard: Escape closes cart ──────────────────────────── */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' &&
+        document.getElementById('cartDrawer').classList.contains('open')) {
+      closeCart();
+    }
+  });
+
+  /* ── Init ─────────────────────────────────────────────────── */
+  selectPurchaseType('subscribe');
+  updatePriceDisplay();
+</script>
+</body>
+</html>
